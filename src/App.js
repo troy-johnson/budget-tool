@@ -1,13 +1,14 @@
 import React from "react";
 import "./App.css";
-import { BudgetProvider } from "./providers/BudgetProvider";
+import { Provider } from 'react-redux'
+import store from "./utils/store";
 import Income from "./components/Income";
 import Expenses from "./components/Expenses";
 import ExpenseInput from "./components/ExpenseInput";
 
 const App = () => {
    return (
-      <BudgetProvider>
+      <Provider store={store}>
          <header
             style={{
                display: "flex",
@@ -23,7 +24,7 @@ const App = () => {
          <Income />
          <ExpenseInput />
          <Expenses />
-      </BudgetProvider>
+      </Provider>
    );
 };
 

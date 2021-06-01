@@ -1,11 +1,14 @@
 import React from "react";
-import { BudgetContext } from "../providers/BudgetProvider";
+import { useSelector, useDispatch } from "react-redux";
+import { updateMonthlyIncome } from "../utils/budgetSlice";
 
 const Income = () => {
-   const { budgetActions, budgetState } = React.useContext(BudgetContext);
+   const income = useSelector((state) => state.budget.monthlyIncome);
+   const expenses = useSelector((state) => state.budget.totalExpenses)
+   const dispatch = useDispatch();
 
-   const updateMonthlyIncome = (e) => {
-      budgetActions.updateMonthlyIncome(e.target.value);
+   const updateIncome = (e) => {
+      dispatch(updateMonthlyIncome(e.target.value));
    };
 
    return (
@@ -14,13 +17,13 @@ const Income = () => {
             <p>Monthly Income</p>$
             <input
                type="number"
-               placeholder={budgetState.monthlyIncome}
-               onChange={(e) => updateMonthlyIncome(e)}
+               placeholder={income}
+               onChange={(e) => updateIncome(e)}
             />
          </section>
          <section id="unbudgeted">
             <p>Unbudgeted</p>
-            <p>${budgetState.monthlyIncome - budgetState.totalExpenses}</p>
+            <p>${income - expenses}</p>
          </section>
       </main>
    );
